@@ -2,10 +2,11 @@ import * as React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 
 
+
 const Home = () => {
   return (
     <View style={styles.container}>
-      <Text>componentName</Text>
+      <Text> Home</Text>
     </View>
   );
 };
