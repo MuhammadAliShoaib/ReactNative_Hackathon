@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, Modal, TouchableOpacity, StyleSheet } from 'react-native';
-import styles from '../config/styling/styles';
+import styles from '../styling/styles';
 
 const SMDialog = ({ visible,gallery,camera, onClose, title, message }) => {
   return (

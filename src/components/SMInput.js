@@ -1,4 +1,3 @@
-import styles from '../config/styling/styles';
 import {StyleSheet, Text, TextInput, View} from 'react-native';
 
 function SMInput(props) {

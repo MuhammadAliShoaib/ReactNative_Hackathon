@@ -6,12 +6,13 @@ import {
 } from 'react-native-gesture-handler';
 import { useState } from 'react';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
-import SMDialog from '../components/SMDIalog';
+
 import styles from '../styling/styles';
+import SMDialog from '../components/SMDialog';
 
 
 function Profile() {
-  const [imgUri, setImgUri] = useState<String>(
+  const [imgUri, setImgUri] = useState<any>(
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThyUW4SBni8aG-yrhj471NhuedjBoklkLNXsBwQBo7tQ&s',
   );
 

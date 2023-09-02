@@ -13,7 +13,7 @@ import styles from '../styling/styles';
 import SMInput from '../components/SMInput';
 
 
-function Signup() {
+function Signup({navigation}:{navigation:any}) {
 
     const ctx = useContext(UserContext);
 
@@ -114,6 +114,10 @@ function Signup() {
                         Sign up
                     </Text>
                 </TouchableOpacity>
+            </View>
+            <View style={[styles.justifyContentCenter,styles.flexRow]}>
+                <Text style={[styles.textBlack,{fontSize:15,color:"#8D8D8D"}]}>Already Registered?</Text>
+                <Text onPress={()=>navigation.navigate("Login")} style={[styles.textBlack,styles.ms1,{fontSize:15,textDecorationLine:'underline'}]}>Login</Text>
             </View>
         </View>
     );
