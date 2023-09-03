@@ -1,10 +1,14 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
 import { StyleSheet } from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { TabNavigator } from './tabNavigation';
 import Signup from '../../screens/signup';
 import Login from '../../screens/login';
+import Splash from '../../screens/splash';
+import Intro1 from '../../screens/intro1';
+import Intro2 from '../../screens/intro2';
+import Intro3 from '../../screens/intro3';
 
 
 
@@ -14,14 +18,16 @@ const Stack = createNativeStackNavigator();
 const FormNavigation = () => {
   return (
     <NavigationContainer>
-        <Stack.Navigator>
-            <Stack.Screen name="Signup" component={Signup} options={{
-                animation:'default'
-            }}/>
-            <Stack.Screen name="Login" component={Login} options={{
-                animation:'default'
-            }}/>
-        </Stack.Navigator>
+      <Stack.Navigator screenOptions={{
+        headerShown:false
+      }}>
+        <Stack.Screen name="Splash" component={Splash} />
+        <Stack.Screen name="Intro1" component={Intro1}/>
+        <Stack.Screen name="Intro2" component={Intro2}/>
+        <Stack.Screen name="Intro3" component={Intro3}/>
+        <Stack.Screen name="Signup" component={Signup} />
+        <Stack.Screen name="Login" component={Login}/>
+      </Stack.Navigator>
     </NavigationContainer>
   );
 };
