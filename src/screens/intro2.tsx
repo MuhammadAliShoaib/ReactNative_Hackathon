@@ -19,7 +19,7 @@ const Intro2 = ({ navigation }: { navigation: any }) => {
                     <Text style={style.main}>Work more Structured and Organized</Text>
                 </View>
                 <View style={[styles.mb3, styles.justifyContentBetween, { flexDirection: 'row' }]}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={()=>navigation.navigate("Login")}>
                         <Text style={[styles.textBlack, styles.fs4]}>Skip</Text>
                     </TouchableOpacity>
                     <TouchableOpacity

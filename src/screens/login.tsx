@@ -6,14 +6,15 @@ import {
     View,
 } from 'react-native';
 import { useFormik } from 'formik';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import UserContext from '../config/contextAPI/userContext';
 import { signupValidation } from '../config/validation/yupValidations';
 import styles from '../styling/styles';
 import SMInput from '../components/SMInput';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 
-function Login({navigation}:{navigation:any}) {
+function Login({ navigation }: { navigation: any }) {
 
     const ctx = useContext(UserContext);
 
@@ -34,15 +35,24 @@ function Login({navigation}:{navigation:any}) {
 
     return (
         <View style={[styles.p3]}>
-            <Text style={[styles.textBlack, styles.fs1]}>Login Account</Text>
-            <View style={[styles.my2]}>
+            <View style={[styles.my3, styles.alignItemsCenter, styles.justifyContentBetween, { flexDirection: 'row', width: '62%' }]}>
+                <TouchableOpacity style={style.circle} onPress={() => navigation.goBack()}>
+                    <Icon name="chevron-left" color='black' size={40} />
+                </TouchableOpacity>
+                <Text style={[styles.textBlack, styles.fs2]}>Sign in</Text>
+            </View>
+            <Text style={[styles.textBlack, styles.fs1, styles.textBold]}>Welcome Back</Text>
+            <View>
+                <Text style={style.desc}>Please enter your email address </Text>
+                <Text style={style.desc}>and passoword for Login</Text>
+            </View>
+            <View style={[styles.my1]}>
                 <View style={[styles.mt2]}>
                     <SMInput
                         onChangeText={handleChange('email')}
                         onBlur={handleBlur('email')}
                         value={values.email}
                         placeholder="Enter Email"
-                        label="Email"
                         ViewStyle={[styles.mt2]}
                     />
                     {errors.email && touched.email ? (
@@ -50,7 +60,6 @@ function Login({navigation}:{navigation:any}) {
                     ) : null}
                 </View>
                 <View style={[styles.mt2]}>
-                    <Text style={style.labels}>Password</Text>
                     <TextInput
                         onChangeText={handleChange('password')}
                         onBlur={handleBlur('password')}
@@ -66,48 +75,59 @@ function Login({navigation}:{navigation:any}) {
                         </Text>
                     ) : null}
                 </View>
+                <View style={[styles.alignItemsEnd,styles.my2]}>
+                    <Text style={[styles.textBold, styles.ms1, { fontSize: 15, color: 'black' }]}>Forgot Password?</Text>
+                </View>
                 <TouchableOpacity
-                    onPress={()=>handleSubmit}
+                    onPress={() => handleSubmit}
                     style={[
                         styles.p1,
                         styles.textBold,
-                        { backgroundColor: '#CC1512' },
+                        { backgroundColor: '#756ef3' },
                         styles.rounded,
                         style.card,
-                        styles.m2,
                     ]}>
                     <Text style={[styles.textWhite, styles.fs3, styles.textCenter]}>
-                        Login
+                        Sign in
                     </Text>
                 </TouchableOpacity>
             </View>
-            <View style={[styles.justifyContentCenter,styles.flexRow]}>
-                <Text style={[styles.textBlack,{fontSize:15,color:"#8D8D8D"}]}>Don't have an account?</Text>
-                <Text onPress={()=>navigation.goBack()} style={[styles.textBlack,styles.ms1,{fontSize:15,textDecorationLine:'underline'}]}>Signup</Text>
+            <View style={[styles.justifyContentCenter, styles.flexRow,styles.my3]}>
+                <Text style={[styles.textBlack, { fontSize: 15, color: "#8D8D8D" }]}>Not Register Yet?</Text>
+                <Text onPress={() => navigation.goBack()} style={[styles.textBold, styles.ms1, { fontSize: 15, color: '#756ef3' }]}>Sign up</Text>
             </View>
         </View>
     );
 }
 
 const style = StyleSheet.create({
-    labels: {
-        color: 'black',
-        fontSize: 15,
-        marginBottom: 5,
-    },
     inputs: {
         borderColor: 'black',
         borderWidth: 1,
-        borderRadius: 5,
+        borderRadius: 15,
         color: 'black',
+        padding: 15
     },
     card: {
-        shadowColor: 'black',
-        shadowOffset: { width: 0, height: 2 },
-        shadowRadius: 6,
+        shadowColor: '#756ef3',
+        shadowOffset: { width: 5, height: 5 },
+        shadowRadius: 8,
         shadowOpacity: 0.8,
-        elevation: 5,
+        elevation: 7,
         borderRadius: 10,
+    },
+    desc: {
+        color: "#C0C0C0",
+        marginTop: 5
+    },
+    circle: {
+        width: 50, // Adjust the circle size as needed
+        height: 50,
+        borderRadius: 40, // Half of the width/height to make it a circle,
+        borderColor: '#C0C0C0',
+        borderWidth: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
 });
 

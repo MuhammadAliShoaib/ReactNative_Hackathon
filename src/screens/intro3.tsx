@@ -14,7 +14,7 @@ const Intro3 = ({ navigation }: { navigation: any }) => {
                     <Text style={style.main}>Manage your Tasks quickly for Results.</Text>
                 </View>
                 <View style={[styles.mb3, styles.justifyContentBetween, { flexDirection: 'row' }]}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={()=>navigation.navigate("Login")}>
                         <Text style={[styles.textBlack, styles.fs4]}>Skip</Text>
                     </TouchableOpacity>
                     <TouchableOpacity

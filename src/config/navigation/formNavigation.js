@@ -26,7 +26,7 @@ const FormNavigation = () => {
         <Stack.Screen name="Intro2" component={Intro2}/>
         <Stack.Screen name="Intro3" component={Intro3}/>
         <Stack.Screen name="Signup" component={Signup} />
-        <Stack.Screen name="Login" component={Login}/>
+        <Stack.Screen name="Login" component={Login} />
       </Stack.Navigator>
     </NavigationContainer>
   );
