@@ -10,9 +10,6 @@ import Intro1 from '../../screens/intro1';
 import Intro2 from '../../screens/intro2';
 import Intro3 from '../../screens/intro3';
 
-
-
-
 const Stack = createNativeStackNavigator();
 
 const FormNavigation = () => {
@@ -25,8 +22,8 @@ const FormNavigation = () => {
         <Stack.Screen name="Intro1" component={Intro1}/>
         <Stack.Screen name="Intro2" component={Intro2}/>
         <Stack.Screen name="Intro3" component={Intro3}/>
-        <Stack.Screen name="Signup" component={Signup} />
         <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Signup" component={Signup} />
       </Stack.Navigator>
     </NavigationContainer>
   );

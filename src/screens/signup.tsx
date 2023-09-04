@@ -11,16 +11,18 @@ import UserContext from '../config/contextAPI/userContext';
 import { signupValidation } from '../config/validation/yupValidations';
 import styles from '../styling/styles';
 import SMInput from '../components/SMInput';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import axios from 'axios';
 
 
-function Signup({navigation}:{navigation:any}) {
+function Signup({ navigation }: { navigation: any }) {
 
     const ctx = useContext(UserContext);
 
+    let api = "https://hackthon.cyclic.app/api/users"
 
     const initialValues = {
-        firstName: '',
-        lastName: '',
+        name: '',
         email: '',
         password: '',
     };
@@ -30,67 +32,68 @@ function Signup({navigation}:{navigation:any}) {
             initialValues: initialValues,
             validationSchema: signupValidation,
             onSubmit: values => {
-                ctx.userLogin(values)
+                ctx.userLogin(values);
+                sendData(values);
             },
         });
 
+    let sendData = (values: any) => {
+        axios.post(api, values)
+            .then((res) => {
+                console.log("User signed up successfully")
+                ctx.userLogin(values);
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
+
     return (
         <View style={[styles.p3]}>
-            <Text style={[styles.textBlack, styles.fs1]}>Create Account</Text>
+            <View style={[styles.my3, styles.alignItemsCenter, styles.justifyContentBetween, { flexDirection: 'row', width: '62%' }]}>
+                <TouchableOpacity style={style.circle} onPress={() => navigation.goBack()}>
+                    <Icon name="chevron-left" color='black' size={40} />
+                </TouchableOpacity>
+                <Text style={[styles.textBlack, styles.fs2]}>Sign Up</Text>
+            </View>
+            <Text style={[styles.textBlack, styles.fs1, styles.textBold]}>Create Account</Text>
+            <View>
+                <Text style={style.desc}>Please enter your information and </Text>
+                <Text style={style.desc}>create your account</Text>
+            </View>
             <View style={[styles.my2]}>
-                <View style={[styles.flexRow, styles.justifyContentBetween]}>
-                    <View>
-                        <SMInput
-                            onChangeText={handleChange('firstName')}
-                            onBlur={handleBlur('firstName')}
-                            value={values.firstName}
-                            placeholder="Enter First Name"
-                            label="First Name"
-                            style={[style.inputs, { width: 150 }]}
-                        />
-                        {errors.firstName && touched.firstName ? (
-                            <Text style={{ fontSize: 11, color: 'red' }}>
-                                {errors.firstName}
-                            </Text>
-                        ) : null}
-                    </View>
-                    <View>
-                        <SMInput
-                            onChangeText={handleChange('lastName')}
-                            onBlur={handleBlur('lastName')}
-                            value={values.lastName}
-                            placeholder="Enter Last Name"
-                            label="Last Name"
-                            style={[style.inputs, { width: 150 }]}
-                        />
-                        {errors.lastName && touched.lastName ? (
-                            <Text style={{ fontSize: 11, color: 'red' }}>
-                                {errors.lastName}
-                            </Text>
-                        ) : null}
-                    </View>
+                <View style={[styles.mt1]}>
+                    <SMInput
+                        onChangeText={handleChange('name')}
+                        onBlur={handleBlur('name')}
+                        value={values.name}
+                        placeholder="Enter Name"
+                        ViewStyle={[styles.mt2]}
+                    />
+                    {errors.name && touched.name ? (
+                        <Text style={{ fontSize: 11, color: 'red' }}>{errors.name}</Text>
+                    ) : null}
                 </View>
-                <View style={[styles.mt2]}>
+                <View style={[styles.mt1]}>
                     <SMInput
                         onChangeText={handleChange('email')}
                         onBlur={handleBlur('email')}
                         value={values.email}
                         placeholder="Enter Email"
-                        label="Email"
+
                         ViewStyle={[styles.mt2]}
                     />
                     {errors.email && touched.email ? (
                         <Text style={{ fontSize: 11, color: 'red' }}>{errors.email}</Text>
                     ) : null}
                 </View>
-                <View style={[styles.mt2]}>
-                    <Text style={style.labels}>Password</Text>
+                <View style={[styles.my4]}>
                     <TextInput
                         onChangeText={handleChange('password')}
                         onBlur={handleBlur('password')}
                         value={values.password}
                         placeholder="Enter Password"
-                        placeholderTextColor="#57595A"
+                        placeholderTextColor="#C0C0C0"
                         style={[style.inputs]}
                         secureTextEntry
                     />
@@ -101,39 +104,34 @@ function Signup({navigation}:{navigation:any}) {
                     ) : null}
                 </View>
                 <TouchableOpacity
-                    onPress={()=>handleSubmit}
+                    onPress={() => handleSubmit()}
                     style={[
                         styles.p1,
                         styles.textBold,
-                        { backgroundColor: '#CC1512' },
+                        { backgroundColor: '#756ef3' },
                         styles.rounded,
                         style.card,
-                        styles.m2,
                     ]}>
                     <Text style={[styles.textWhite, styles.fs3, styles.textCenter]}>
                         Sign up
                     </Text>
                 </TouchableOpacity>
             </View>
-            <View style={[styles.justifyContentCenter,styles.flexRow]}>
-                <Text style={[styles.textBlack,{fontSize:15,color:"#8D8D8D"}]}>Already Registered?</Text>
-                <Text onPress={()=>navigation.navigate("Login")} style={[styles.textBlack,styles.ms1,{fontSize:15,textDecorationLine:'underline'}]}>Login</Text>
+            <View style={[styles.justifyContentCenter, styles.flexRow, styles.my3]}>
+                <Text style={[styles.textBlack, { fontSize: 15, color: "#8D8D8D" }]}>Have an Account?</Text>
+                <Text onPress={() => navigation.navigate("Login")} style={[styles.textBold, styles.ms1, { fontSize: 15, color: '#756ef3' }]}>Sign In</Text>
             </View>
         </View>
     );
 }
 
 const style = StyleSheet.create({
-    labels: {
-        color: 'black',
-        fontSize: 15,
-        marginBottom: 5,
-    },
     inputs: {
         borderColor: 'black',
         borderWidth: 1,
-        borderRadius: 5,
+        borderRadius: 15,
         color: 'black',
+        padding: 15
     },
     card: {
         shadowColor: 'black',
@@ -142,6 +140,19 @@ const style = StyleSheet.create({
         shadowOpacity: 0.8,
         elevation: 5,
         borderRadius: 10,
+    },
+    circle: {
+        width: 50, // Adjust the circle size as needed
+        height: 50,
+        borderRadius: 40, // Half of the width/height to make it a circle,
+        borderColor: '#C0C0C0',
+        borderWidth: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    desc: {
+        color: "#C0C0C0",
+        marginTop: 5
     },
 });
 

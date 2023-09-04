@@ -8,16 +8,18 @@ import {
 import { useFormik } from 'formik';
 import { useContext, useEffect } from 'react';
 import UserContext from '../config/contextAPI/userContext';
-import { signupValidation } from '../config/validation/yupValidations';
+import { loginValidation } from '../config/validation/yupValidations';
 import styles from '../styling/styles';
 import SMInput from '../components/SMInput';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import axios from 'axios';
 
 
 function Login({ navigation }: { navigation: any }) {
 
     const ctx = useContext(UserContext);
 
+    let api = "https://hackthon.cyclic.app/api/login"
 
     const initialValues = {
         email: '',
@@ -27,11 +29,21 @@ function Login({ navigation }: { navigation: any }) {
     const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
         useFormik({
             initialValues: initialValues,
-            validationSchema: signupValidation,
+            validationSchema: loginValidation,
             onSubmit: values => {
-                ctx.userLogin(values)
+                console.log(values)
+                checkData(values);
             },
         });
+
+    let checkData = (values:any) => {
+        axios.post(api, values)
+            .then((res) => {
+                console.log("User Logged in Successfully");
+                ctx.userLogin()
+            })
+            .catch((err) => console.log(err.message))
+    }
 
     return (
         <View style={[styles.p3]}>
@@ -65,7 +77,7 @@ function Login({ navigation }: { navigation: any }) {
                         onBlur={handleBlur('password')}
                         value={values.password}
                         placeholder="Enter Password"
-                        placeholderTextColor="#57595A"
+                        placeholderTextColor="#C0C0C0"
                         style={[style.inputs]}
                         secureTextEntry
                     />
@@ -75,11 +87,11 @@ function Login({ navigation }: { navigation: any }) {
                         </Text>
                     ) : null}
                 </View>
-                <View style={[styles.alignItemsEnd,styles.my2]}>
+                <View style={[styles.alignItemsEnd, styles.my2]}>
                     <Text style={[styles.textBold, styles.ms1, { fontSize: 15, color: 'black' }]}>Forgot Password?</Text>
                 </View>
                 <TouchableOpacity
-                    onPress={() => handleSubmit}
+                    onPress={()=>handleSubmit()}
                     style={[
                         styles.p1,
                         styles.textBold,
@@ -92,9 +104,9 @@ function Login({ navigation }: { navigation: any }) {
                     </Text>
                 </TouchableOpacity>
             </View>
-            <View style={[styles.justifyContentCenter, styles.flexRow,styles.my3]}>
+            <View style={[styles.justifyContentCenter, styles.flexRow, styles.my3]}>
                 <Text style={[styles.textBlack, { fontSize: 15, color: "#8D8D8D" }]}>Not Register Yet?</Text>
-                <Text onPress={() => navigation.goBack()} style={[styles.textBold, styles.ms1, { fontSize: 15, color: '#756ef3' }]}>Sign up</Text>
+                <Text onPress={() => navigation.navigate("Signup")} style={[styles.textBold, styles.ms1, { fontSize: 15, color: '#756ef3' }]}>Sign up</Text>
             </View>
         </View>
     );

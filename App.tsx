@@ -12,9 +12,9 @@ function App() {
 
   return (
     <>
-      <FormNavigation/>
-      {/* {!ctx.Login && <FormNavigation/>} */}
-      {/* {ctx.Login && <StackNavigation />} */}
+      {/* <FormNavigation/> */}
+      {!ctx.Login && <FormNavigation/>}
+      {ctx.Login && <StackNavigation />}
       {/* <StackNavigation /> */}
     </>
   );

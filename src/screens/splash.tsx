@@ -61,6 +61,6 @@ const style = StyleSheet.create({
         shadowRadius: 8,
         shadowOpacity: 0.8,
         elevation: 7,
-        borderRadius: 10,
+        borderRadius: 15,
     },
 });
