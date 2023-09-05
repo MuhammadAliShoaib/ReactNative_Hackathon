@@ -12,7 +12,6 @@ function UserProvider(props) {
     setIsLoggedIn(true);
     if (item) {
       setData(item)
-      console.log(item)
     }
   };
 
