@@ -2,22 +2,12 @@ import React from 'react';
 import { View, Text, Modal, TouchableOpacity, StyleSheet } from 'react-native';
 import styles from '../styling/styles';
 
-const SMDialog = ({ visible,gallery,camera, onClose, title, message }) => {
+const SMDialog = (props) => {
   return (
-    <Modal visible={visible} animationType="fade" transparent>
+    <Modal visible={true} animationType="fade" transparent>
       <View style={style.modalContainer}>
         <View style={style.dialogContainer}>
-          <Text style={style.title}>{title}</Text>
-          <Text style={style.message}>{message}</Text>
-          <TouchableOpacity onPress={camera} style={[styles.bgSuccess,styles.p1,styles.rounded,styles.my1]}>
-            <Text style={[styles.textCenter,styles.textWhite,styles.textBold]}>Open Camera</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={gallery} style={[styles.bgSuccess,styles.p1,styles.rounded,styles.my1]}>
-            <Text style={[styles.textCenter,styles.textWhite,styles.textBold]}>Open Gallery</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={style.button} onPress={onClose}>
-            <Text style={style.buttonText}>Close</Text>
-          </TouchableOpacity>
+          {props.children}
         </View>
       </View>
     </Modal>

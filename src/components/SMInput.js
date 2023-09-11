@@ -3,6 +3,7 @@ import {StyleSheet, Text, TextInput, View} from 'react-native';
 function SMInput(props) {
   return (
     <>
+    {props.label? <Text style={{...props.TextStyle, ...style.labels}}>{props.label}</Text> : null}
       <TextInput
         onChangeText={props.onChangeText}
         onBlur={props.onBlur}
@@ -22,6 +23,11 @@ const style = StyleSheet.create({
     borderRadius: 15,
     color: 'black',
     padding:15
+  },
+  labels: {
+    color: '#C0C0C0',
+    fontSize: 15,
+    marginBottom: 10,
   },
 });
 

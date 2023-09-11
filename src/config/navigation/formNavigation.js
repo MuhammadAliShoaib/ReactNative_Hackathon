@@ -5,10 +5,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import { TabNavigator } from './tabNavigation';
 import Signup from '../../screens/signup';
 import Login from '../../screens/login';
-import Splash from '../../screens/splash';
-import Intro1 from '../../screens/intro1';
-import Intro2 from '../../screens/intro2';
-import Intro3 from '../../screens/intro3';
+import Splash from '../../screens/intro/splash';
+import Intro1 from '../../screens/intro/intro1';
+import Intro2 from '../../screens/intro/intro2';
+import Intro3 from '../../screens/intro/intro3';
 
 const Stack = createNativeStackNavigator();
 

@@ -2,10 +2,11 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as React from 'react';
 import { View, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import Home from '../../screens/home';
-import Profile from '../../screens/profile';
-import Add from '../../screens/add';
-import Chat from '../../screens/chat';
+import Home from '../../screens/Tabs/home';
+import Profile from '../../screens/Tabs/profile';
+import Add from '../../screens/Tabs/add';
+import Chat from '../../screens/Tabs/chat';
+import Project from '../../screens/Tabs/project';
 
 
 const Tab = createBottomTabNavigator();
@@ -26,7 +27,7 @@ export function TabNavigator() {
                 tabBarShowLabel: false,
                 tabBarIcon: ({ focused }) => <Icon name="home" color={focused ? "#756ef3" : '#000'} size={30} />
             }} />
-            <Tab.Screen name="Project" component={Home} options={{
+            <Tab.Screen name="Project" component={Project} options={{
                 tabBarShowLabel: false,
                 tabBarIcon: ({ focused }) => <Icon name="folder" color={focused ? "#756ef3" : '#000'} size={30} />
             }} />

@@ -5,14 +5,14 @@ import styles from '../styling/styles';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 
-const Add = () => {
+const SMModal = ({show}:{show:any}) => {
 
 
-  const [visible, setVisible] = React.useState(true)
+  const [visible, setVisible] = React.useState<any>(show)
 
   return (
     <View style={style.container}>
-      <Modal isVisible={visible} style={style.modal}>
+      <Modal isVisible={show} style={style.modal}>
         <View style={style.modalView}>
           <TouchableOpacity style={style.box}>
             <Icon name='edit-square' color={"rgb(0 32 85)"} size={30} />
@@ -43,7 +43,7 @@ const Add = () => {
   );
 };
 
-export default Add;
+export default SMModal;
 
 const style = StyleSheet.create({
   container: {},

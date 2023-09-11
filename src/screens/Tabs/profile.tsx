@@ -7,8 +7,8 @@ import {
 import { useState } from 'react';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 
-import styles from '../styling/styles';
-import SMDialog from '../components/SMDialog';
+import styles from '../../styling/styles';
+import SMDialog from '../../components/SMDialog';
 
 
 function Profile() {
@@ -19,19 +19,29 @@ function Profile() {
   const [showModal, setShowModal] = useState(false);
 
   let openCamera = async () => {
-    const result = await launchCamera({
-      mediaType: 'photo',
-    });
-    setImgUri(result.assets[0].uri);
-    setShowModal(false)
+    try {
+      const result: any = await launchCamera({
+        mediaType: 'photo',
+      });
+      if (result && result.assets && result.assets.length > 0) {
+        setImgUri(result.assets[0].uri);
+      }
+    } catch (err) {
+      console.log(err)
+    }
   };
 
   let openGallery = async () => {
-    const result = await launchImageLibrary({
-      mediaType: 'photo',
-    });
-    setImgUri(result.assets[0].uri);
-    setShowModal(false)
+    try {
+      const result: any = await launchImageLibrary({
+        mediaType: 'photo',
+      });
+      if (result && result.assets && result.assets.length > 0) {
+        setImgUri(result.assets[0].uri);
+      }
+    } catch (err) {
+      console.log(err)
+    }
   };
 
 
@@ -41,7 +51,21 @@ function Profile() {
 
   return (
     <GestureHandlerRootView>
-      <SMDialog visible={showModal} gallery={openGallery} camera={openCamera} onClose={closeModal} title="Modal" message="Showing Modal" />
+      {showModal &&
+        <SMDialog>
+          <Text style={style.title}>Modal</Text>
+          <Text style={style.message}>Showing Modal</Text>
+          <TouchableOpacity onPress={openCamera} style={[styles.bgSuccess, styles.p1, styles.rounded, styles.my1]}>
+            <Text style={[styles.textCenter, styles.textWhite, styles.textBold]}>Open Camera</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={openGallery} style={[styles.bgSuccess, styles.p1, styles.rounded, styles.my1]}>
+            <Text style={[styles.textCenter, styles.textWhite, styles.textBold]}>Open Gallery</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={style.button} onPress={closeModal}>
+            <Text style={style.buttonText}>Close</Text>
+          </TouchableOpacity>
+        </SMDialog>
+      }
       <View style={[styles.alignItemsCenter]}>
         <View
           style={[
@@ -75,7 +99,7 @@ function Profile() {
           </TouchableOpacity>
         </View>
       </View>
-      
+
     </GestureHandlerRootView>
   );
 }
@@ -87,6 +111,27 @@ const style = StyleSheet.create({
   camera: {
     bottom: 30,
     left: 100,
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 8,
+    color: 'black'
+  },
+  message: {
+    fontSize: 16,
+    marginBottom: 16,
+    color: 'black'
+  },
+  button: {
+    backgroundColor: 'blue',
+    padding: 10,
+    borderRadius: 4,
+    alignSelf: 'flex-end',
+  },
+  buttonText: {
+    color: '#fff',
+    fontWeight: 'bold',
   },
 });
 
